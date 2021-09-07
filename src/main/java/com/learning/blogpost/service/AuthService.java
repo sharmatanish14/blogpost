@@ -5,8 +5,11 @@ import com.learning.blogpost.dto.RegisterRequest;
 import com.learning.blogpost.model.User;
 import com.learning.blogpost.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -27,5 +30,12 @@ public class AuthService {
     }
 
     public void login(LoginRequest loginRequest) {
+    }
+
+    public Optional<org.springframework.security.core.userdetails.User> getCurrentuser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return Optional.of(principal);
+
     }
 }
